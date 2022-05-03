@@ -27,7 +27,8 @@ public class MedcaseTest {
     @Before
     public void setUp(){
 
-        driver = new SafariDriver();
+        System.setProperty("webdriver.chrome.driver", "./src/main/resources/ChromeDriver/chromedriver.exe");
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.medcase.health/");
     }
@@ -48,7 +49,9 @@ public class MedcaseTest {
 
     @Test
     public void openTabCareers(){
-        driver.get("https://www.medcase.health/clinician-openings");
+        WebElement clinicianOpenings = driver.findElement(By.linkText("Clinician Openings"));
+
+        clinicianOpenings.click();
 
         String title = driver.getTitle();
 
