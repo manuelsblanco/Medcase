@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -34,7 +35,7 @@ public class MedcaseTest {
     }
 
     @Test
-    public void testCareersTab(){
+    public void a(){
         WebElement careersTab = driver.findElement(By.id("w-dropdown-toggle-0"));
 
         careersTab.click();
@@ -48,7 +49,7 @@ public class MedcaseTest {
     }
 
     @Test
-    public void openTabCareers(){
+    public void b(){
         WebElement clinicianOpenings = driver.findElement(By.linkText("Clinician Openings"));
 
         clinicianOpenings.click();
@@ -56,6 +57,14 @@ public class MedcaseTest {
         String title = driver.getTitle();
 
         assertEquals(title, "Clinician Openings");
+    }
+
+    @Test
+    public void c(){
+        driver.get("https://www.medcase.health/clinician-openings");
+        List<WebElement> a = driver.findElements(By.linkText("Apply"));
+        System.out.println("La cantidad de botones Apply es "+ a.size());
+        assertTrue(true);
     }
 
     @After
