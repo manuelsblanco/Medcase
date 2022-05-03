@@ -10,11 +10,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -42,7 +46,7 @@ public class MedcaseTest {
 
         boolean tabDisplayed = careersTab.isDisplayed();
 
-        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         assertTrue(tabDisplayed);
 
@@ -61,10 +65,19 @@ public class MedcaseTest {
 
     @Test
     public void c(){
-        driver.get("https://www.medcase.health/clinician-openings");
-        List<WebElement> a = driver.findElements(By.linkText("Apply"));
-        System.out.println("La cantidad de botones Apply es "+ a.size());
-        assertTrue(true);
+        driver.navigate().to("https://www.medcase.health/clinician-openings");
+        List<WebElement> buttons = driver.findElements(By.linkText("Apply"));
+        long clicks = 0 ;
+        for(int a = 0 ; a < buttons.size() ; a++){
+
+            buttons.get(a).click();
+            clicks++;
+            driver.navigate().to("https://www.medcase.health/clinician-openings");
+            buttons.clear();
+            buttons = driver.findElements(By.linkText("Apply"));
+
+        }
+        assertEquals(clicks,buttons.size());
     }
 
     @After
